@@ -1,4 +1,4 @@
-from fabric.api import task  # , env
+from fabric.api import task, env
 
 # import the preconfigured tasks that ship with cotton. Loading fabfile submodules
 # here will expose their tasks to the fab command-line.
@@ -31,8 +31,14 @@ def init():
     """
     Bootstrap the base system
     """
-    system.bootstrap()
+
+    if env.user != 'root':
+        raise Exception("Please execute the init task as root, thus: fab -u root init")
+
+    # WAT for some reason system.bootstrap() trashes the debconf selections made by the
+    # postfix.install() task. Until this bug is resolved, we must install postfix first. *mutter*
     postfix.install()
+    system.bootstrap()
     project.install()
 
 

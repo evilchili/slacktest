@@ -1,6 +1,24 @@
 # Ubuntu Production Configuration Notes:
 
-- `apt-get update && apt-get install apache2 php5 libapache2-modsecurity postfix`
+*Installed Packages*
+- sudo
+- ufw
+- fail2ban
+- git-core
+- vim
+- build-essential
+- python2.7
+- python-setuptools
+- python-dev
+- python-pip
+- python-virtualenv
+- bsd-mailx
+- apache2
+- php5
+- libapache2-modsecurity
+
+(Certain packages, like the python bits, git, and build-essential are for the build/release toolset)
+
 
 *Apache2*
 - `ServerSignature Off`
@@ -34,7 +52,7 @@
 *Unattended Upgrades*
 - `Unattended-Upgrade::Mail "root@localhost";`
 
-*kernel tuning*
+*Kernel Tuning*
 - socket backlog tuning params to match apache's `ListenBacklog`
 
 *Other Considerations*
@@ -44,3 +62,4 @@
 - disable ARP for VIP, if application nodes are in a cluster system
 - vanilla settings for fail2ban may need adjusting depending on local traffic/attack patterns
 - tuning `net.ipv4.tcp_keepalive_*` and `net.core.?mem_*` should be considered after application profiling
+- mail aliases should be set to handle system/app mail properly, in concert with global mail policies
