@@ -47,6 +47,7 @@ def ship():
     """
     Deploy the current branch to production
     """
+    system.unbanips()
     project.git_push()
     project.install_dependencies()
     system.ensure_running()
