@@ -56,6 +56,7 @@
 - socket backlog tuning params to match apache's `ListenBacklog`
 
 *Other Considerations*
+- consider restricting inbound HTTP requests to those proxied by the load balancer
 - tune the `mpm_preform module`, setting `StartServers`, `MaxClients`, etc based on performance-testing of the app
 - consider libapache2-modevasive if DDoSes are high risk, or aren't addressed at the load balancer/edge
 - consider chrooting SSHD, apache2, etc if a strong case can be made for it

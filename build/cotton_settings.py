@@ -17,7 +17,11 @@ VIRTUALENV_PATH = os.path.join(VIRTUALENV_HOME, PROJECT_NAME)
 PROJECT_ROOT = os.path.join(VIRTUALENV_PATH, 'project')
 
 # A list of target nodes which cotton should (optionally) bootstrap and deploy your app to
-HOSTS = ['108.61.229.81', '104.207.143.24']
+
+# test nodes
+#HOSTS = ['108.61.229.81', '104.207.143.4']
+HOSTS = ['54.224.38.201', '54.224.23.213']
+
 
 # A list of IPv4 addresses that should be granted administrative access. This includes
 # permitting SSH access, and may be leveraged for additional purposes in your ap
