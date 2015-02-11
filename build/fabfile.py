@@ -33,7 +33,7 @@ def init():
     """
     system.bootstrap()
     postfix.install()
-    project.create()
+    project.install()
 
 
 @task
@@ -43,3 +43,4 @@ def ship():
     """
     project.git_push()
     project.install_dependencies()
+    system.ensure_running()

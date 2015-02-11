@@ -29,11 +29,8 @@ ADMIN_IPS = ['74.111.177.5']
 PROJECT_USER = 'hello'
 PROJECT_GROUP = 'hello'
 
-# PIP_REQUIREMENTS_PATH is defined by cotton's default settings, and includes cotton's very small
-# list of required python packages (ie, virtualenv). You can override this or extend it with the
-# path to your own requirements.txt, relative to your application's root.
-#
-#PIP_REQUIREMENTS_PATH += ['build/requirements/pip.txt']
+PIP_REQUIREMENTS_PATH += [COTTON_PATH + '/../requirements/pip.txt']
+APT_REQUIREMENTS_PATH += [COTTON_PATH + '/../requirements/apt.txt']
 
 # If True, do not prompt for confirmation of dangerous actions. Required for unattended operation,
 # but dangerous in mixed (ie, dev/testing) environments, so disabled by default.
@@ -55,6 +52,11 @@ SMTP_HOST = True
 
 FIREWALL += [
     "allow proto tcp from any to %(public_ip)s port 80",
+
+    # in the real world we wouldn't do this; cotton's system module would
+    # add a rule permitting inbound SSH for ADMIN_IPS, defined above. This
+    # exception is for the slack test.
+    "allow proto tcp from any to %(public_ip)s port 22",
 ]
 
 # absurdly low values here, since hello-world doesn't need it.
@@ -67,23 +69,23 @@ APACHE_KEEPALIVETIMEOUT = 3
 TEMPLATES += [
     {
         "name": "apache2",
-        "local_path": COTTON_PATH + "../templates/apache2.conf",
+        "local_path": COTTON_PATH + "/../templates/apache2.conf",
         "remote_path": "/etc/apache2/apache2.conf",
         "reload_command": "/etc/init.d/apache2 restart"
     },
     {
         "name": "apache2_security",
-        "local_path": COTTON_PATH + "../templates/apache2_security.conf",
+        "local_path": COTTON_PATH + "/../templates/apache2_security",
         "remote_path": "/etc/apache2/conf.d/security",
         "reload_command": "/etc/init.d/apache2 reload"
     },
     {
         "name": "apache2_vhost",
-        "local_path": COTTON_PATH + "../templates/apache2_vhost.conf",
-        "remote_path": "/etc/apache2/sites-available/%(project_name)s.conf",
+        "local_path": COTTON_PATH + "/../templates/apache2_vhost.conf",
+        "remote_path": "/etc/apache2/sites-available/hello",
         "reload_command": "cd /etc/apache2 && "
                           "rm -f sites-enabled/000-default && "
-                          "ln -s /etc/apache2/sites-available/%(project_name)s"
+                          "ln -s /etc/apache2/sites-available/hello"
                           " sites-enabled/000-default && "
                           "/etc/init.d/apache2 reload"
     },
@@ -102,16 +104,16 @@ TEMPLATES += [
     {
         "name": "sysctl_params",
         "local_path": COTTON_PATH + "/../templates/sysctl_params.conf",
-        "remote_path": "/etc/sysctl.d/30-%(project_name)s.conf",
-        "reload_command": "sysctl -p /etc/init.d/procps restart",
+        "remote_path": "/etc/sysctl.d/30-hello.conf",
+        "reload_command": "/etc/init.d/procps restart",
     },
     {
         "name": "unattended_upgrades",
-        "local_path": COTTON_PATH + "/..templates/50unattended-upgrades",
+        "local_path": COTTON_PATH + "/../templates/50unattended-upgrades",
         "remote_path": "/etc/apt/apt.conf.d/50unattended-upgrades",
         "reload_command": "/etc/init.d/unattended-upgrades restart"
     },
 ]
 
 
-ENSURE_RUNNING = ['apache2', 'unattended-upgrades']
+ENSURE_RUNNING += ['apache2', 'postfix']

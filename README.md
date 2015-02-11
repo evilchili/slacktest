@@ -24,6 +24,11 @@
 - `PermitRootLogin forced-commands-only` (skipped for test)
 - `AllowGroups staff` (+ `root` for test)
 
+*Firewall*
+- allow ssh only from known administrative IPs (skipped for test)
+- allow incoming tcp 80 from anywhere
+- install fail2ban
+
 
 *Unattended Upgrades*
 - `Unattended-Upgrade::Mail "root@localhost";`
