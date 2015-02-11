@@ -1,3 +1,3 @@
-Place your public keys for the SSH_USER and PROJECT_USERs here. The .pub files themselves will be ignored by git.
+Place your public keys for the SSH_USER here, as `$USERNAME`.pub.
 
-This application expects a public key for each of the `deploy` user and the `hello` user.
+The slacktest application is currently configured to expect a public key for the `deploy` user.
