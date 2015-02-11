@@ -87,3 +87,7 @@ fab -H [IP] ship
 - tuning `net.ipv4.tcp_keepalive_*` and `net.core.?mem_*` should be considered after application profiling
 - mail aliases should be set to handle system/app mail properly, in concert with global mail policies
 - backups!
+
+*About Users*
+- Hosts will contain a user, `deploy`, which has unfettered sudo access and SSH access. This is the user that is responsible for deploying code and executing tasks on the remote hosts
+- A second user, `hello`, has no sudo access and in production would have no SSH access; this is the user under which any application-specific processes would execute (eg. php-fpm, django/uwsgi, cron jobs, etc)
