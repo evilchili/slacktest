@@ -10,7 +10,7 @@
 ### Bootstrap the Host for Production
 
 ```
-fab -H [IP] -u root init
+cd build && fab -H [IP] -u root init
 ```
 
 ### Deploy the hello-world Application
