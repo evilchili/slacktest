@@ -1,1 +1,1 @@
-build/keys
+build/keys/*.pub
