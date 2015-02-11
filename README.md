@@ -2,16 +2,22 @@
 
 ## Usage:
 
-### Installatiaon
+### Installation
 1. install fabric
-2. initialize the cotton submodule
-3. copy your SSH public key to `build/keys/deploy.pub`
+1. initialize the cotton submodule
+1. copy your SSH public key to `build/keys/deploy.pub`
 
-*Bootstrap the Host for Production*
-```fab -H [IP] -u root init```
+### Bootstrap the Host for Production
 
-*Deploy the hello-world Application*
-```fab -H [IP] ship```
+```
+fab -H [IP] -u root init
+```
+
+### Deploy the hello-world Application
+
+```
+fab -H [IP] ship
+```
 
 
 # Ubuntu Production Configuration Notes:
