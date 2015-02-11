@@ -1,1 +1,3 @@
 Place your public keys for the SSH_USER and PROJECT_USERs here. The .pub files themselves will be ignored by git.
+
+This application expects a public key for each of the `deploy` user and the `hello` user.
