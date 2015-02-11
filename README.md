@@ -1,3 +1,19 @@
+# SlackTest
+
+## Usage:
+
+### Installatiaon
+1. install fabric
+2. initialize the cotton submodule
+3. copy your SSH public key to `build/keys/deploy.pub`
+
+### bootstrap the host for production
+4. fab -H [IP] -u root init
+
+### deploy the hello-world application
+5. fab -H [IP] ship
+
+
 # Ubuntu Production Configuration Notes:
 
 *Installed Packages*
