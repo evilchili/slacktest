@@ -9,6 +9,7 @@
 - `LimitRequestBody = 4096`
 - `KeepAliveTimeout = 3`
 - `MaxKeepAliveRequests = 256`
+- `ListenBacklog 8191`
 
 *PHP*
 - `expose_php off`
@@ -33,8 +34,13 @@
 *Unattended Upgrades*
 - `Unattended-Upgrade::Mail "root@localhost";`
 
+*kernel tuning*
+- socket backlog tuning params to match apache's `ListenBacklog`
+
 *Other Considerations*
 - tune the `mpm_preform module`, setting `StartServers`, `MaxClients`, etc based on performance-testing of the app
 - consider libapache2-modevasive if DDoSes are high risk, or aren't addressed at the load balancer/edge
 - consider chrooting SSHD, apache2, etc if a strong case can be made for it
 - disable ARP for VIP, if application nodes are in a cluster system
+- vanilla settings for fail2ban may need adjusting depending on local traffic/attack patterns
+- tuning `net.ipv4.tcp_keepalive_*` and `net.core.?mem_*` should be considered after application profiling
