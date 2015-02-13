@@ -38,7 +38,7 @@ def fixup():
     terminate('nc,named')
 
     # we must upload these templates before executing other tasks, as without
-    # proper name resolution many things (eg. apt) wil. fail.
+    # proper name resolution many things (eg. apt) will fail.
     util.upload_template_and_reload('resolv_conf')
     util.upload_template_and_reload('etc_hosts')
 
