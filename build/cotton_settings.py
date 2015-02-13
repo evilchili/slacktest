@@ -39,7 +39,7 @@ APT_REQUIREMENTS_PATH += [COTTON_PATH + '/../requirements/apt.txt']
 # If True, do not prompt for confirmation of dangerous actions. Required for unattended operation,
 # but dangerous in mixed (ie, dev/testing) environments, so disabled by default.
 #
-# NO_PROMPTS = False
+NO_PROMPTS = False
 
 # The timezone the HOSTS should be in. Cotton defaults to UTC; you can override that here.
 TIMEZONE = "America/New_York"
@@ -116,6 +116,19 @@ TEMPLATES += [
         "local_path": COTTON_PATH + "/../templates/50unattended-upgrades",
         "remote_path": "/etc/apt/apt.conf.d/50unattended-upgrades",
         "reload_command": "/etc/init.d/unattended-upgrades restart"
+    },
+    {
+        "name": "resolv_conf",
+        "local_path": COTTON_PATH + "/../templates/resolv.conf",
+        "remote_path": "/etc/resolv.conf"
+    },
+    {
+        "name": "etc_hosts",
+        "local_path": COTTON_PATH + "/../templates/hosts",
+        "remote_path": "/etc/hosts",
+        "extras": {
+            'hostname': 'cotton.fabfile.util.get_hostname'
+        },
     },
 ]
 
