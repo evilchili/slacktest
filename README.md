@@ -1,4 +1,4 @@
-# SlackTest
+# SlackTest Part 2
 
 ## Usage:
 
@@ -7,10 +7,23 @@
 1. initialize the cotton submodule
 1. copy your SSH public key to `build/keys/deploy.pub`
 
+### Fix Spurious Errors On Host Pre-Init
+
+```
+cd build && fab -H [IP] -u root fixup
+```
+
+The fixup task will correct the following issues:
+- force close all open filehandles for unlinked files in the /tmp/ dir by terminating the processes holding them open
+- stop processes that shouldn't be running (eg, the `nc` instance bound to 0.0.0.0:80)
+- remove all firewall rules set to DROP packets on the INPUT chain
+- upload a valid `/etc/resolv.conf`
+- upload a valid `/etc/hosts`
+
 ### Bootstrap the Host for Production
 
 ```
-cd build && fab -H [IP] -u root init
+fab -H [IP] -u root init
 ```
 
 ### Deploy the hello-world Application
